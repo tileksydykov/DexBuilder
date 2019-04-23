@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dex Builder</string>
+    <string name="textview">Hello! Welcome to DEX BUILDER! \n </string>
 </resources>
