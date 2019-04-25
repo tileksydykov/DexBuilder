@@ -1,4 +1,4 @@
-package com.example.dexbuilder;
+package com.flaterlab.dexbuilder;
 
 import org.junit.Test;
 

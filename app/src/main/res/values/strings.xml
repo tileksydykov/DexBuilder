@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Dex Builder</string>
     <string name="textview">Hello! Welcome to DEX BUILDER! \n </string>
+    <string name="get_link_for_project">Get</string>
+    <string name="welcome_message">Welcome to DEX BUILDER! \n \n    Please choose a name for representing it on flipdex.ru</string>
+    <string name="site_url">flipdex.ru/</string>
 </resources>

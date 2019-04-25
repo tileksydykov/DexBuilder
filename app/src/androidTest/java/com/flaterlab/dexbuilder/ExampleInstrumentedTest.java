@@ -1,4 +1,4 @@
-package com.example.dexbuilder;
+package com.flaterlab.dexbuilder;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
