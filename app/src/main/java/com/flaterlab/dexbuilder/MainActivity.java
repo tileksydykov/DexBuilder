@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
                 // - the node is created
                 // - the node is deleted
                 // - a subnode is added / updated
-                String text = noSql.get("/projects/").toString() + "from db";
+                String text = noSql.get("/projects/").string() + "from db";
                 mTextView.setText(text);
             }
         });
@@ -103,18 +103,23 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
+
         } else if (id == R.id.nav_gallery) {
+
 
         } else if (id == R.id.nav_slideshow) {
 
+
         } else if (id == R.id.nav_tools) {
+
 
         } else if (id == R.id.nav_share) {
 
+
         } else if (id == R.id.nav_send) {
 
-        }
 
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
