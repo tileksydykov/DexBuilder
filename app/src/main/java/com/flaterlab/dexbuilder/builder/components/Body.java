@@ -1,5 +1,5 @@
 package com.flaterlab.dexbuilder.builder.components;
 
-public class Body {
+public class Body extends Base{
 
 }
