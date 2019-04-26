@@ -52,6 +52,7 @@
             android:textSize="35sp" />
 
         <EditText
+            android:id="@+id/site_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -59,6 +60,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/check_site"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/get_link_for_project"
