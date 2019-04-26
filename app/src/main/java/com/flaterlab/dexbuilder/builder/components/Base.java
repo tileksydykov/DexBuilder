@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Set;
 
 public abstract class Base {
+    protected HashMap<String, String> map;
+
+    public Base() {
+        this.map = new HashMap<>();
+    }
+
     public String render(String template, HashMap<String, String> vars){
         String v, r;
         Set<String> keys = vars.keySet();

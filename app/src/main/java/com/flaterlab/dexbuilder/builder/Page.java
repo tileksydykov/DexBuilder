@@ -1,6 +1,7 @@
 package com.flaterlab.dexbuilder.builder;
 
 import com.flaterlab.dexbuilder.builder.components.Body;
+import com.flaterlab.dexbuilder.builder.components.Title;
 
 import java.util.HashMap;
 
@@ -12,8 +13,8 @@ public class Page {
     }
 
     public static void main(String[] args) {
-        Body b = new Body();
-        String n = b.render("tielk @@@himik@@@", new HashMap<String, String>());
+        Title b = new Title();
+        String n = b.getH1("himik");
         System.out.println(n);
     }
 }

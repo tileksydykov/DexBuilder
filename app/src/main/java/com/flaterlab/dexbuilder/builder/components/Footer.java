@@ -1,4 +1,4 @@
 package com.flaterlab.dexbuilder.builder.components;
 
-public class Footer {
+public class Footer extends Base {
 }
