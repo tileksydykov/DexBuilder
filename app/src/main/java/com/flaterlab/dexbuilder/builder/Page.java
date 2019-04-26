@@ -1,8 +1,9 @@
 package com.flaterlab.dexbuilder.builder;
 
-import com.flaterlab.dexbuilder.builder.components.Body;
+import com.flaterlab.dexbuilder.builder.components.List;
 import com.flaterlab.dexbuilder.builder.components.Title;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Page {
@@ -13,8 +14,7 @@ public class Page {
     }
 
     public static void main(String[] args) {
-        Title b = new Title();
-        String n = b.getH1("himik");
-        System.out.println(n);
+        List b = new List();
+        System.out.println();
     }
 }
