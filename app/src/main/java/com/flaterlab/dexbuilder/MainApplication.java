@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.github.florent37.androidnosql.AndroidNoSql;
 
+
 public class MainApplication extends Application {
 
     @Override

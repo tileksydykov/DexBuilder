@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,25 +17,47 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.flaterlab.dexbuilder.helper.MainListAdapter;
 import com.github.florent37.androidnosql.AndroidNoSql;
 import com.github.florent37.androidnosql.Listener;
 import com.github.florent37.androidnosql.NoSql;
 
+import java.text.CollationElementIterator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    NoSql noSql;
+    TextView mTextView;
+    RecyclerView recyclerView;
+    LinearLayoutManager layoutManager;
+    MainListAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final String TAG = "main";
         setContentView(R.layout.activity_builder);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        final TextView mTextView = findViewById(R.id.main_activity_datebase_dump);
+        recyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
 
-        final NoSql noSql = AndroidNoSql.getInstance();
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+
+
+        noSql = AndroidNoSql.getInstance();
+
 
         noSql.notify("/projects/", new Listener() {
             @Override
@@ -41,8 +66,8 @@ public class MainActivity extends AppCompatActivity
                 // - the node is created
                 // - the node is deleted
                 // - a subnode is added / updated
-                String text = noSql.get("/projects/").string() + "from db";
-                mTextView.setText(text);
+
+                Log.d(TAG, "nodeChanged: ");
             }
         });
 
@@ -50,8 +75,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, 2);
 
-                startActivity(intent);
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -123,5 +148,26 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void updateList(){
+        ArrayList<String> myDataset = new ArrayList<>(noSql.node("/projects/").keys());
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new MainListAdapter(myDataset, getApplicationContext());
+        recyclerView.setAdapter(mAdapter);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if(requestCode==2)
+        {
+            updateList();
+        }
     }
 }

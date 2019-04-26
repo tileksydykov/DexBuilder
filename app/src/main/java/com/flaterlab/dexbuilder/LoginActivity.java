@@ -1,5 +1,6 @@
 package com.flaterlab.dexbuilder;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,11 +25,9 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar mProgresBar;
     NoSql mNoSql;
     String lastProjectName;
-    AppCompatActivity this_;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this_ = this;
 
         setContentView(R.layout.activity_login);
 
@@ -77,8 +76,11 @@ public class LoginActivity extends AppCompatActivity {
             if(s.equals("1")){
                 messageForUser.setText("WE ALREADY HAVE THE SAME PAGE NAME \n PLEASE CHOOSE ANOTHER PAGE NAME");
             }else {
-                mNoSql.put("/projects/", lastProjectName);
-                this_.onBackPressed();
+                mNoSql.node("/projects/").put(lastProjectName, "/fez/");
+                mNoSql.save();
+                Intent intent=new Intent();
+                setResult(2,intent);
+                finish();
             }
             mProgresBar.setVisibility(View.INVISIBLE);
         }
