@@ -13,11 +13,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button checkSiteButton = findViewById(R.id.check_site);
-        EditText siteTitleEditText = findViewById(R.id.site_title);
+        final EditText siteTitleEditText = findViewById(R.id.site_title);
 
         checkSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String siteName = siteTitleEditText.getText().toString();
+
 
             }
         });

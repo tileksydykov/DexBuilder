@@ -10,9 +10,7 @@ import okhttp3.Response;
 
 public class PostFlipdex {
 
-    public static final String SET_SITE_URL ="https://flipdex.ru/ajax/setsite";
-    public static final String CHECK_SITE_URL ="https://flipdex.ru/ajax/sitecheck";
-    public static final String DELETE_SITE_URL ="https://flipdex.ru/ajax/sitedelete";
+
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
@@ -41,12 +39,4 @@ public class PostFlipdex {
         }
     }
 
-
-
-    public static void main(String[] args) throws IOException {
-        PostFlipdex example = new PostFlipdex();
-
-        String response = example.post(SET_SITE_URL, "body", "tilek", "title");
-        System.out.println(response);
-    }
 }
