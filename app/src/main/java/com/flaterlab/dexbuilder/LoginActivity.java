@@ -11,19 +11,20 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.github.florent37.androidnosql.AndroidNoSql;
-import com.github.florent37.androidnosql.NoSql;
+
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
 
     TextView messageForUser;
     ProgressBar mProgresBar;
-    NoSql mNoSql;
     String lastProjectName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
         mProgresBar = findViewById(R.id.progressBar);
 
-        mNoSql = AndroidNoSql.getInstance();
 
         checkSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +76,9 @@ public class LoginActivity extends AppCompatActivity {
             if(s.equals("1")){
                 messageForUser.setText("WE ALREADY HAVE THE SAME PAGE NAME \n PLEASE CHOOSE ANOTHER PAGE NAME");
             }else {
-                mNoSql.node("/projects/").put(lastProjectName, "/fez/");
-                mNoSql.save();
+                ArrayList<String> projects = Paper.book().read("projects", new ArrayList<String>());
+                projects.add(lastProjectName);
+                Paper.book().write("projects", projects);
                 Intent intent=new Intent();
                 setResult(2,intent);
                 finish();

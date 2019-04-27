@@ -3,10 +3,10 @@ package com.flaterlab.dexbuilder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,25 +17,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.flaterlab.dexbuilder.helper.MainListAdapter;
-import com.github.florent37.androidnosql.AndroidNoSql;
-import com.github.florent37.androidnosql.Listener;
-import com.github.florent37.androidnosql.NoSql;
 
-import java.text.CollationElementIterator;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+
+import io.paperdb.Paper;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    NoSql noSql;
-    TextView mTextView;
+
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     MainListAdapter mAdapter;
@@ -47,29 +41,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        recyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
+        recyclerView = findViewById(R.id.main_recycler_view);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
+        updateList();
 
-
-        noSql = AndroidNoSql.getInstance();
-
-
-        noSql.notify("/projects/", new Listener() {
-            @Override
-            public void nodeChanged(String path, NoSql.Value value) {
-                //notified when :
-                // - the node is created
-                // - the node is deleted
-                // - a subnode is added / updated
-
-                Log.d(TAG, "nodeChanged: ");
-            }
-        });
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,9 +118,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_tools) {
 
 
-        } else if (id == R.id.nav_share) {
-
-
         } else if (id == R.id.nav_send) {
 
 
@@ -151,7 +128,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void updateList(){
-        ArrayList<String> myDataset = new ArrayList<>(noSql.node("/projects/").keys());
+        ArrayList<String> myDataset = Paper.book().read("projects", new ArrayList<String>());
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
