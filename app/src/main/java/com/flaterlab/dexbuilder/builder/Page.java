@@ -1,10 +1,6 @@
 package com.flaterlab.dexbuilder.builder;
 
-import com.flaterlab.dexbuilder.builder.components.List;
-import com.flaterlab.dexbuilder.builder.components.Title;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.flaterlab.dexbuilder.builder.components.ClassList;
 
 public class Page {
 
@@ -14,7 +10,9 @@ public class Page {
     }
 
     public static void main(String[] args) {
-        List b = new List();
-        System.out.println();
+        ClassList b = new ClassList();
+        b.add("dfaf");
+        b.add("fwfewa");
+        System.out.println(b);
     }
 }
