@@ -1,6 +1,8 @@
 package com.flaterlab.dexbuilder.helper;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flaterlab.dexbuilder.LoginActivity;
+import com.flaterlab.dexbuilder.MainActivity;
+import com.flaterlab.dexbuilder.ProjectActivity;
 import com.flaterlab.dexbuilder.R;
+
+import org.objenesis.instantiator.basic.FailingInstantiator;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -18,6 +25,7 @@ import java.util.LinkedList;
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MyViewHolder> {
     private ArrayList<String> mDataset;
     private Context context;
+    private Activity parent;
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -29,25 +37,28 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MyView
             linearLayout = v;
             textView = v.findViewById(R.id.main_recycler_view_text);
         }
-        public void bind(final String node, final Context context){
+        public void bind(final String node, final Context context, final Activity parent){
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    Toast.makeText(context, node, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(parent, ProjectActivity.class);
+                    parent.startActivity(intent);
                 }
             });
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MainListAdapter(ArrayList<String> myDataset, Context c) {
+    public MainListAdapter(ArrayList<String> myDataset, Context c, Activity parent) {
         mDataset = myDataset;
         context = c;
+        this.parent = parent;
     }
     // Create new views (invoked by the layout manager)
     @Override
     public MainListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                            int viewType) {
         // create a new view
+
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_adapter_layout, parent, false);
         v.setElevation(8);
@@ -62,7 +73,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MyView
         // - replace the contents of the view with that element
         String element = mDataset.get(position);
         holder.textView.setText(element);
-        holder.bind(element, context);
+        holder.bind(element, context, parent);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

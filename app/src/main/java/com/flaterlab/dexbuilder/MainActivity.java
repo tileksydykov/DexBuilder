@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivityForResult(intent, 2);
-
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -134,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MainListAdapter(myDataset, getApplicationContext());
+        mAdapter = new MainListAdapter(myDataset, getApplicationContext(), this);
         recyclerView.setAdapter(mAdapter);
     }
     @Override

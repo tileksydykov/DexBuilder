@@ -21,4 +21,8 @@
     <string name="page_name_example">example</string>
     <string name="add_new_project">add New Project</string>
     <string name="edit_project">Edit</string>
+    <string name="title_activity_project">ProjectActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
