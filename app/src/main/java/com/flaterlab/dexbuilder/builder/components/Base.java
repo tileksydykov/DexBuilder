@@ -5,9 +5,30 @@ import java.util.Set;
 
 public abstract class Base {
     HashMap<String, String> map;
+    String body;
+    String template;
 
     public Base() {
         this.map = new HashMap<>();
+        body = "";
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    public void bodyAppend(String html){
+        this.body = new StringBuilder()
+                .append(this.body)
+                .append(html)
+                .toString();
+    }
+
+    public void bodyPreAppend(String html){
+        this.body = new StringBuilder()
+                .append(html)
+                .append(body)
+                .toString();
     }
 
     public String render(String template, HashMap<String, String> vars){
@@ -24,5 +45,10 @@ public abstract class Base {
         }
         template = template.replaceAll("(@@)[^&]*(@@)", "");
         return template;
+    }
+
+    @Override
+    public String toString() {
+        return render(template, map);
     }
 }
