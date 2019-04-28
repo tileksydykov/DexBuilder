@@ -14,3 +14,6 @@ DexBuilder is the program which allow you to learn a basics of web programming a
  <ul>
   <li><b>Android 5.1 or higher</b> we use some advanced code features thats why we can't support the older versions</li>
  </ul>
+ # Release Notes
+  v0.0.1 - Basic mobile application release
+ 
