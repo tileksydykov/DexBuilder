@@ -1,7 +1,8 @@
 package com.flaterlab.dexbuilder.builder.components;
 
-public class Button extends Base {
+public class Section extends Base{
 
+    public Section() {}
 
 
 }

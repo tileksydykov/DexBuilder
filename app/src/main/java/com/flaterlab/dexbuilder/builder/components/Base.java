@@ -7,6 +7,7 @@ public abstract class Base {
     HashMap<String, String> map;
     private String body;
     private String GenTemplate;
+    ClassList classes;
 
     public Base() {
         this.map = new HashMap<>();
@@ -47,6 +48,7 @@ public abstract class Base {
         template = template.replaceAll("(@@)[^&]*(@@)", "");
         return template;
     }
+
     public String render(String template){
         map.put("body", body);
         HashMap<String, String> vars = map;
@@ -69,6 +71,7 @@ public abstract class Base {
     public String render(){
         String template = getTemplate();
         map.put("body", body);
+        map.put("class", classes.toString());
         HashMap<String, String> vars = map;
         String v, r;
         Set<String> keys = vars.keySet();

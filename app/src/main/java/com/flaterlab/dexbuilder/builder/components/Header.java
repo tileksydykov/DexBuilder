@@ -29,7 +29,7 @@ public class Header extends Base{
     public String toString() {
         String[] v = {"navbar-brand"};
         bodyAppend(new Link(name, new ClassList(v), "/").toString());
-        bodyAppend(standartButton);
+        // bodyAppend(standartButton);
         return render();
     }
 }
