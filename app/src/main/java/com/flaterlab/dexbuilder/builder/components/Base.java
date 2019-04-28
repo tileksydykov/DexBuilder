@@ -12,6 +12,11 @@ public abstract class Base {
     public Base() {
         this.map = new HashMap<>();
         body = "";
+        classes = new ClassList();
+    }
+
+    public void addClass(String class_){
+        classes.add(class_);
     }
 
     public void setTemplate(String template) {

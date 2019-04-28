@@ -18,7 +18,7 @@ public class Resourses {
 
     final static public String IMAGE = "<img class=\"@@class@@\" href=\"@@link@@\"/>";
 
-    final static public String BUTTON = "<button type=\"@@type@@\" class=\" btn @@class@@\">@@body@@</button>";
+    final static public String BUTTON = "<button type=\"@@type@@\" class=\"@@class@@\">@@body@@</button>";
 
     final static public String LINK = "<a class=\"@@class@@\" href=\"@@link@@\">@@body@@</a>";
 

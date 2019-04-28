@@ -11,6 +11,12 @@ public class Link extends Base {
         map.put("link", "#");
     }
 
+    public Link(String body, String link) {
+        setTemplate(Resourses.LINK);
+        bodyAppend(body);
+        map.put("link", link);
+    }
+
     public Link(String body, ClassList classes, String link) {
         setTemplate(Resourses.LINK);
         bodyAppend(body);
