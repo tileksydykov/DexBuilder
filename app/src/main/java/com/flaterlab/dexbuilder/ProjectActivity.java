@@ -35,7 +35,7 @@ public class ProjectActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_footer:
                     mMainContainer.removeAllViews();
-                    v = inflater.inflate(R.layout.content_edit_layout, mMainContainer);
+                    v = inflater.inflate(R.layout.settings_edit_layout, mMainContainer);
                     return true;
                 case R.id.navigation_publish:
                     mMainContainer.removeAllViews();
@@ -55,7 +55,7 @@ public class ProjectActivity extends AppCompatActivity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout view = findViewById(R.id.project_activity_main_frame);
         mMainContainer = (ViewGroup) view;
-
+        v = inflater.inflate(R.layout.navbar_edit_layout, mMainContainer);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
