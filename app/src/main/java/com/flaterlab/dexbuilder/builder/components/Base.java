@@ -5,8 +5,8 @@ import java.util.Set;
 
 public abstract class Base {
     HashMap<String, String> map;
-    String body;
-    String template;
+    private String body;
+    private String GenTemplate;
 
     public Base() {
         this.map = new HashMap<>();
@@ -14,7 +14,7 @@ public abstract class Base {
     }
 
     public void setTemplate(String template) {
-        this.template = template;
+        this.GenTemplate = template;
     }
 
     public void bodyAppend(String html){
@@ -40,15 +40,58 @@ public abstract class Base {
                     .append(key)
                     .append("@@")
                     .toString();
-            r = (vars.get(key) != null) ? vars.get(key) : " ";
+            r = vars.get(key);
+            if(r == null){r = " ";}
+            template = template.replace(v, r);
+        }
+        template = template.replaceAll("(@@)[^&]*(@@)", "");
+        return template;
+    }
+    public String render(String template){
+        map.put("body", body);
+        HashMap<String, String> vars = map;
+        String v, r;
+        Set<String> keys = vars.keySet();
+        for (String key : keys){
+            v = new StringBuilder()
+                    .append("@@")
+                    .append(key)
+                    .append("@@")
+                    .toString();
+            r = vars.get(key);
+            if(r == null){r = " ";}
             template = template.replace(v, r);
         }
         template = template.replaceAll("(@@)[^&]*(@@)", "");
         return template;
     }
 
+    public String render(){
+        String template = getTemplate();
+        map.put("body", body);
+        HashMap<String, String> vars = map;
+        String v, r;
+        Set<String> keys = vars.keySet();
+        for (String key : keys){
+            v = new StringBuilder()
+                    .append("@@")
+                    .append(key)
+                    .append("@@")
+                    .toString();
+            r = vars.get(key);
+            if(r == null){r = " ";}
+            template = template.replace(v, r);
+        }
+        template = template.replaceAll("(@@)[^&]*(@@)", "");
+        return template;
+    }
+
+    public String getTemplate() {
+        return GenTemplate;
+    }
+
     @Override
     public String toString() {
-        return render(template, map);
+        return render(GenTemplate, map);
     }
 }

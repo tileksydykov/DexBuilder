@@ -13,11 +13,51 @@ public class Title extends Base{
     private String h5 = Resourses.TITLE_5;
     private String h6 = Resourses.TITLE_6;
 
+    private int value;
+
+    public Title(String title, int value){
+        map.put("body", title);
+        this.value = value;
+    }
+
+    public Title(String title, int value, ClassList list){
+        map.put("body", title);
+        map.put("class", list.toString());
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        String template = "";
+        switch (value){
+            case 1:
+                template = h1;
+                break;
+            case 2:
+                template = h2;
+                break;
+            case 3:
+                template = h3;
+                break;
+            case 4:
+                template = h4;
+                break;
+            case 5:
+                template = h5;
+                break;
+            case 6:
+                template = h6;
+                break;
+        }
+        setTemplate(template);
+        return render();
+    }
+
     public String getH1(String title) {
         map.put("body", title);
         return render(h1, map);
     }
-    public String getH2(String title) {
+    public  String getH2(String title) {
         map.put("body", title);
         return render(h2, map);
     }

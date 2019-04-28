@@ -1,6 +1,7 @@
 package com.flaterlab.dexbuilder.builder;
 
 import com.flaterlab.dexbuilder.builder.components.ClassList;
+import com.flaterlab.dexbuilder.builder.components.Header;
 
 public class Page {
 
@@ -10,9 +11,7 @@ public class Page {
     }
 
     public static void main(String[] args) {
-        ClassList b = new ClassList();
-        b.add("dfaf");
-        b.add("fwfewa");
-        System.out.println(b);
+        Header b = new Header("Tielk", ThemeConfig.DARK);
+        System.out.println(b.toString());
     }
 }

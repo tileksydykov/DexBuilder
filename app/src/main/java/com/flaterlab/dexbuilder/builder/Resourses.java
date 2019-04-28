@@ -20,7 +20,7 @@ public class Resourses {
 
     final static public String BUTTON = "<button type=\"@@type@@\" class=\" btn @@class@@\">@@body@@</button>";
 
-    final static public String LINK = "<a class=\"@@class@@\" href=\"@@link@@\">{{body}}</a>";
+    final static public String LINK = "<a class=\"@@class@@\" href=\"@@link@@\">@@body@@</a>";
 
     final static public String FOOTER = "<footer class=\"@@class@@\">@@body@@</footer>";
     final static public String FORM = "<form class=\"@@class@@\">@@body@@</form>";
