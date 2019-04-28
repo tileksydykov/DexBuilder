@@ -33,4 +33,6 @@ public class Resourses {
     final static public String TITLE_6 = "<h6 class=\"@@class@@\">@@body@@</h6>";
 
     final static public String SECTION = "<section class=\"@@class@@\">@@body@@</section>";
+
+    final static public String PARAGRAPH = "<p class=\"@@class@@\">@@body@@</p>";
 }
