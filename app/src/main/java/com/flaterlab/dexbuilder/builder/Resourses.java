@@ -35,4 +35,10 @@ public class Resourses {
     final static public String SECTION = "<section class=\"@@class@@\">@@body@@</section>";
 
     final static public String PARAGRAPH = "<p class=\"@@class@@\">@@body@@</p>";
+
+    final static public String STYLE_SCOPE = "<style>@@body@@</style>";
+    final static public String GOOGLE_FONT_ADD_FORM = "";
+
+
+
 }

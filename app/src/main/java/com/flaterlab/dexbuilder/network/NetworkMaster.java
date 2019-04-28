@@ -1,10 +1,6 @@
 package com.flaterlab.dexbuilder.network;
 
 
-import android.os.AsyncTask;
-
-import java.io.IOException;
-
 public class NetworkMaster  {
     private static final String SET_SITE_URL ="https://flipdex.ru/ajax/setsite";
     private static final String CHECK_SITE_URL ="https://flipdex.ru/ajax/sitecheck";

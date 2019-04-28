@@ -22,7 +22,9 @@
     <string name="add_new_project">add New Project</string>
     <string name="edit_project">Edit</string>
     <string name="title_activity_project">ProjectActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Navbar</string>
+    <string name="title_dashboard">Content</string>
+    <string name="title_notifications">Settings</string>
+    <string name="publish_nav">Publish</string>
+    <string name="save_project_title">Save project</string>
 </resources>

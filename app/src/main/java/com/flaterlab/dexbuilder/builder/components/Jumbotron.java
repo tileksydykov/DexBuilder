@@ -16,7 +16,9 @@ public class Jumbotron extends Base {
     }
 
     public void setTitle(String title) {
-        this.title = new Title(title, ThemeConfig.MAIN_TITLE).toString();
+        Title m = new Title(title, ThemeConfig.MAIN_TITLE);
+        m.addClass("display-3");
+        this.title = m.toString();
     }
 
     public void setText(String text) {
@@ -26,14 +28,17 @@ public class Jumbotron extends Base {
     public void setButton(String button) {
         Button m = new Button(button);
         m.setButtonLink("/");
-        this.button = m.toString();
+
+        this.button = new Paragraph(m.toString()).toString();
     }
 
     @Override
     public String toString() {
-        bodyAppend(title);
-        bodyAppend(text);
-        bodyAppend(button);
+        Container m = new Container();
+        m.bodyAppend(title);
+        m.bodyAppend(text);
+        m.bodyAppend(button);
+        bodyAppend(m.render());
         return render();
     }
 }

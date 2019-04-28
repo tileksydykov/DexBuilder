@@ -10,10 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
@@ -45,8 +49,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String siteName = siteTitleEditText.getText().toString();
-                mProgresBar.setVisibility(View.VISIBLE);
-                new AsyncTaskRunner().execute(siteName);
+                if(siteName.length() < 3){
+                    Toast.makeText(getApplicationContext(), "too short (at least 3 char)", Toast.LENGTH_LONG).show();
+                }else {
+                    mProgresBar.setVisibility(View.VISIBLE);
+                    new AsyncTaskRunner().execute(siteName);
+                }
             }
         });
     }
@@ -55,18 +63,38 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String CHECK_SITE_URL ="https://flipdex.ru/ajax/sitecheck";
+            String SET_SITE_URL = "https://flipdex.ru/ajax/setsite";
 
                 OkHttpClient client = new OkHttpClient();
                 lastProjectName = strings[0];
                 Request request = new Request.Builder()
                         .url(CHECK_SITE_URL + "/" + strings[0])
                         .build();
+
                 String res = "";
                 try{
                     Response response = client.newCall(request).execute();
                     res = response.body().string();
                 }catch (IOException e){
-                    Log.d("check", "cant read response");
+                    Toast.makeText(getApplicationContext(), "No INTERNET", Toast.LENGTH_LONG).show();
+                }
+                Log.d("check", "doInBackground: " + res);
+                if(true){
+                    RequestBody formBody = new FormEncodingBuilder()
+                            .add("id", lastProjectName)
+                            .build();
+                    Request request2 = new Request.Builder()
+                            .url(SET_SITE_URL)
+                            .post(formBody)
+                            .build();
+                    String res2 = "";
+                    try{
+                        Response response2 = client.newCall(request2).execute();
+                        res2 = response2.body().string();
+                        Log.d("check", "post executer server res :" + res2);
+                    }catch (IOException e){
+                        Log.d("check", "cant read response");
+                    }
                 }
                 return res;
         }

@@ -2,8 +2,6 @@ package com.flaterlab.dexbuilder.builder.components;
 
 import com.flaterlab.dexbuilder.builder.Resourses;
 
-import java.util.HashMap;
-
 public class Title extends Base{
 
     private String h1 = Resourses.TITLE_1;
@@ -16,12 +14,12 @@ public class Title extends Base{
     private int value;
 
     public Title(String title, int value){
-        map.put("body", title);
+        bodyAppend(title);
         this.value = value;
     }
 
     public Title(String title, int value, ClassList list){
-        map.put("body", title);
+        bodyAppend(title);
         map.put("class", list.toString());
         this.value = value;
     }
@@ -57,24 +55,30 @@ public class Title extends Base{
         map.put("body", title);
         return render(h1, map);
     }
-    public  String getH2(String title) {
+
+    public String getH2(String title) {
         map.put("body", title);
         return render(h2, map);
     }
+
     public String getH3(String title) {
         map.put("body", title);
         return render(h3, map);
     }
+
     public String getH4(String title) {
         map.put("body", title);
         return render(h4, map);
     }
+
     public String getH5(String title) {
         map.put("body", title);
         return render(h5, map);
     }
+
     public String getH6(String title) {
         map.put("body", title);
         return render(h6, map);
     }
+
 }

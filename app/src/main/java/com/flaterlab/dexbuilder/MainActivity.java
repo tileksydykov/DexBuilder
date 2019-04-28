@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     MainListAdapter mAdapter;
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_builder);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.main_recycler_view);
 
         // use this setting to improve performance if you know that changes
