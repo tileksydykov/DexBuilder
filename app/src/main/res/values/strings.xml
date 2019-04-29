@@ -29,4 +29,11 @@
     <string name="save_project_title">Save project</string>
     <string name="publish">Publish</string>
     <string name="save">Save</string>
+    <string name="edit_site_name">Edit Site Name</string>
+    <string name="edit_jumbotron_title">Edit Jumbotron Title</string>
+    <string name="edit_jumbotron_text">Edit Jumbotron Text</string>
+    <string name="jumbotron_example_text">This is your first page!!! Enjoy!</string>
+    <string name="sample_text_for_button">Sample</string>
+    <string name="short_link_error">Too short (at least 3 char)</string>
+    <string name="link_contains_spaces_error">Site link should\'n contains any space</string>
 </resources>

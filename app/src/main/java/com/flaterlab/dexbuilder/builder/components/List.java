@@ -10,11 +10,9 @@ public class List extends Base{
 
     private ArrayList<String> data;
 
-    public List() {
+    public List() { }
 
-    }
-
-    public List(ArrayList list) {
+    public List(ArrayList<String> list) {
         data = list;
     }
 

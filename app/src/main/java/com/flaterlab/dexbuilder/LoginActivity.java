@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.flaterlab.dexbuilder.builder.Page;
 import com.flaterlab.dexbuilder.builder.ThemeConfig;
+import com.flaterlab.dexbuilder.helper.DBConfig;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -25,7 +26,9 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.paperdb.Paper;
 
@@ -34,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView messageForUser;
     ProgressBar mProgresBar;
     String lastProjectName;
+    LoginActivity context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText siteTitleEditText = findViewById(R.id.site_title);
 
+        context = this;
+
         messageForUser = findViewById(R.id.message_for_user);
 
         mProgresBar = findViewById(R.id.progressBar);
@@ -52,24 +58,42 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String siteName = siteTitleEditText.getText().toString();
+                String err = "";
+
                 if(siteName.length() < 3){
-                    Toast.makeText(getApplicationContext(), "too short (at least 3 char)", Toast.LENGTH_LONG).show();
-                }else {
+                    Toast.makeText(getApplicationContext(), context.getString(R.string.short_link_error), Toast.LENGTH_LONG).show();
+                    err = "z";
+                }
+                if (siteName.contains(" ")){
+                    Toast.makeText(getApplicationContext(), context.getString(R.string.link_contains_spaces_error), Toast.LENGTH_LONG).show();
+                    err = "z";
+                }
+                if(err.equals("")){
                     mProgresBar.setVisibility(View.VISIBLE);
-                    new AsyncTaskRunner().execute(siteName);
+                    new AsyncTaskRunner(context).execute(siteName.trim());
                 }
             }
         });
     }
 
-    private class AsyncTaskRunner extends AsyncTask<String, String, String>{
+    private static class  AsyncTaskRunner extends AsyncTask<String, String, String>{
+        private WeakReference<LoginActivity> activityReference;
+
+        AsyncTaskRunner(LoginActivity context) {
+            activityReference = new WeakReference<>(context);
+        }
+
         @Override
         protected String doInBackground(String... strings) {
             String CHECK_SITE_URL ="https://flipdex.ru/ajax/sitecheck";
             String SET_SITE_URL = "https://flipdex.ru/ajax/setsite";
 
+            LoginActivity activity = activityReference.get();
+
+            if (activity == null || activity.isFinishing()) return "z";
+
                 OkHttpClient client = new OkHttpClient();
-                lastProjectName = strings[0];
+                activity.lastProjectName = strings[0];
                 Request request = new Request.Builder()
                         .url(CHECK_SITE_URL + "/" + strings[0])
                         .build();
@@ -79,16 +103,17 @@ public class LoginActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     res = response.body().string();
                 }catch (IOException e){
-                    Toast.makeText(getApplicationContext(), "No INTERNET", Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity.getApplicationContext(), "No INTERNET", Toast.LENGTH_LONG).show();
                 }
+
                 Log.d("check", "doInBackground: " + res);
                 if(true){
                     Page p = new Page();
                     p.setTheme(ThemeConfig.DARK);
                     RequestBody formBody = new FormEncodingBuilder()
-                            .add("id", lastProjectName)
-                            .add("body", p.getJumbotronSample(lastProjectName))
-                            .add("title", lastProjectName + " - Powered by DexBuilder")
+                            .add("id", strings[0])
+                            .add("body", p.getJumbotronSample(strings[0]))
+                            .add("title", strings[0] + " - Powered by DexBuilder")
                             .build();
                     Request request2 = new Request.Builder()
                             .url(SET_SITE_URL)
@@ -108,22 +133,37 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+            LoginActivity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
             if(s.equals("1")){
-                messageForUser.setText("WE ALREADY HAVE THE SAME PAGE NAME \n PLEASE CHOOSE ANOTHER PAGE NAME");
+                activity.messageForUser.setText("WE ALREADY HAVE THE SAME PAGE NAME \n PLEASE CHOOSE ANOTHER PAGE NAME");
             }else {
-                ArrayList<String> projects = Paper.book().read("projects", new ArrayList<String>());
-                projects.add(lastProjectName);
-                Paper.book().write("projects", projects);
+                saveProjectInDB(activity.lastProjectName);
                 Intent intent=new Intent();
-                setResult(2,intent);
-                finish();
+                activity.setResult(2,intent);
+                activity.finish();
             }
-            mProgresBar.setVisibility(View.INVISIBLE);
+            activity.mProgresBar.setVisibility(View.INVISIBLE);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+        }
+
+        protected void saveProjectInDB (String name) {
+            ArrayList<String> projects = Paper.book().read("projects", new ArrayList<String>());
+            projects.add(name);
+            Paper.book().write("projects", projects);
+
+
+            HashMap<String, String> project = new HashMap<>();
+            project.put(DBConfig.TITLE, name);
+            project.put(DBConfig.JUMBOTRON_TITLE, name);
+            project.put(DBConfig.JUMBOTRON_BUTTON_TEXT, "sample");
+            project.put(DBConfig.JUMBOTRON_TEXT, "This is your first page!!! Enjoy!");
+            Paper.book(DBConfig.PROJECT_NODE).write( name,  project);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.flaterlab.dexbuilder.builder;
 
+import com.flaterlab.dexbuilder.R;
 import com.flaterlab.dexbuilder.builder.components.Header;
 import com.flaterlab.dexbuilder.builder.components.Jumbotron;
 import com.flaterlab.dexbuilder.builder.components.Section;
