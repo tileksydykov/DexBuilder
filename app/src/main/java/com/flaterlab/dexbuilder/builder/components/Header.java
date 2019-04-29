@@ -16,7 +16,6 @@ public class Header extends Base{
         ClassList classes = new ClassList();
         classes.add("navbar");
         classes.add("navbar-expand-lg");
-
         if(theme == ThemeConfig.LIGHT){
             classes.add("navbar-light bg-light");
         }else if (theme == ThemeConfig.DARK){
@@ -36,7 +35,10 @@ public class Header extends Base{
     @Override
     public String toString() {
         String[] v = {"navbar-brand"};
-        bodyAppend(new Link(name, new ClassList(v), "/").toString());
+        Div d = new Div();
+        d.addClass("navbar-header");
+        d.bodyAppend(new Link(name, new ClassList(v), "/").toString());
+        bodyAppend(d.toString());
         // bodyAppend(standartButton);
         return render();
     }

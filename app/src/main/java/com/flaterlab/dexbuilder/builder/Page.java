@@ -19,9 +19,7 @@ public class Page {
 
     private ArrayList<Section> sections;
 
-    public Page(){
-
-    }
+    public Page(){ }
 
     public Page(int theme) {
         this.theme = theme;
@@ -80,11 +78,19 @@ public class Page {
         return main;
     }
 
+    public void setHeader(Header h){
+        addToPage(h.toString());
+    }
+
     public void setJumbotron(Jumbotron j){
         addToPage(j.toString());
     }
 
     public void addSection(Section s){
         addToPage(s.toString());
+    }
+
+    public String getPage(){
+        return main;
     }
 }

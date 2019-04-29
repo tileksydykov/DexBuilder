@@ -7,6 +7,7 @@ public class DBConfig {
     public final static String TITLE = "title";
 
     public final static String NAVBAR_TITLE = "NavbarTitle";
+    public final static String NAVBAR_STYLE = "NavbarStyle";
 
     public final static String JUMBOTRON_TEXT = "JumbotronText";
     public final static String JUMBOTRON_TITLE = "JumbotronTitle";

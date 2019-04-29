@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.flaterlab.dexbuilder.builder.Page;
 import com.flaterlab.dexbuilder.builder.ThemeConfig;
+import com.flaterlab.dexbuilder.builder.components.Header;
+import com.flaterlab.dexbuilder.builder.components.Jumbotron;
 import com.flaterlab.dexbuilder.helper.DBConfig;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -53,6 +55,7 @@ public class ProjectActivity extends AppCompatActivity {
     HashMap<String, String> project;
     String projectName;
     ProgressBar mProgressBar;
+    ProjectActivity context;
 
     int currentProjectEditView;
 
@@ -131,6 +134,8 @@ public class ProjectActivity extends AppCompatActivity {
 
         projectName = extras.getString("projectName");
 
+        context = this;
+
         project = Paper.book(DBConfig.PROJECT_NODE)
                 .read( projectName,
                         new HashMap<String, String>());
@@ -203,7 +208,27 @@ public class ProjectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mProgressBar.setVisibility(View.VISIBLE);
                 Page p = new Page();
+                Header h = new Header(project.get(DBConfig.TITLE),
+                        ThemeConfig.DARK);
 
+
+
+                Jumbotron j = new Jumbotron();
+
+                j.setTitle(project.get(DBConfig.JUMBOTRON_TITLE));
+
+                j.setText(project.get(DBConfig.JUMBOTRON_TEXT));
+
+                j.setButton(project.get(DBConfig.JUMBOTRON_TITLE));
+
+                p.setHeader(h);
+                p.setJumbotron(j);
+
+                new AsyncTaskRunner(context).execute(
+                        projectName,
+                        project.get(DBConfig.TITLE),
+                        p.getPage()
+                );
 
             }
         });
