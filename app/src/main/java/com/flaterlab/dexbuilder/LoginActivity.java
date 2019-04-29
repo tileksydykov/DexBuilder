@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
+import com.flaterlab.dexbuilder.builder.Page;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -46,8 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         messageForUser = findViewById(R.id.message_for_user);
 
         mProgresBar = findViewById(R.id.progressBar);
-
-
 
         checkSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +82,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 Log.d("check", "doInBackground: " + res);
                 if(true){
+                    Page p = new Page();
+
                     RequestBody formBody = new FormEncodingBuilder()
                             .add("id", lastProjectName)
+                            .add("body", p.toString())
+                            .add("title", lastProjectName + " - Powered by DexBuilder")
                             .build();
                     Request request2 = new Request.Builder()
                             .url(SET_SITE_URL)
