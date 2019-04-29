@@ -1,6 +1,8 @@
 package com.flaterlab.dexbuilder;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -12,20 +14,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.flaterlab.dexbuilder.builder.Page;
+import com.flaterlab.dexbuilder.builder.ThemeConfig;
 import com.flaterlab.dexbuilder.helper.DBConfig;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.paperdb.Paper;
 
 public class ProjectActivity extends AppCompatActivity {
-    final String TAG  = "Project activity";
+
 
     final int EDIT_PROJECT_NAVBAR = 1;
     final int EDIT_PROJECT_BODY = 2;
@@ -41,6 +52,7 @@ public class ProjectActivity extends AppCompatActivity {
     EditText mEditJumbotronText;
     HashMap<String, String> project;
     String projectName;
+    ProgressBar mProgressBar;
 
     int currentProjectEditView;
 
@@ -72,6 +84,7 @@ public class ProjectActivity extends AppCompatActivity {
 
                     v = inflater.inflate(R.layout.body_edit_layout, mMainContainer);
 
+                    onBodyEditCreate(v);
                     return true;
 
                 case R.id.navigation_footer:
@@ -83,6 +96,8 @@ public class ProjectActivity extends AppCompatActivity {
                     mMainContainer.removeAllViews();
 
                     v = inflater.inflate(R.layout.settings_edit_layout, mMainContainer);
+
+                    onSettingEditCreate(v);
 
                     return true;
 
@@ -96,9 +111,7 @@ public class ProjectActivity extends AppCompatActivity {
 
                     v = inflater.inflate(R.layout.save_project_layout, mMainContainer);
 
-                    mPublishProjectButton = v.findViewById(R.id.button_publish);
-
-                    setListenersOnSaveProjectView();
+                    onSaveProjectCreate(v);
 
                     return true;
             }
@@ -132,6 +145,7 @@ public class ProjectActivity extends AppCompatActivity {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout view = findViewById(R.id.project_activity_main_frame);
         mMainContainer = (ViewGroup) view;
+        mProgressBar = findViewById(R.id.progressBarLoadingProject);
         v = inflater.inflate(R.layout.navbar_edit_layout, mMainContainer);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -160,15 +174,7 @@ public class ProjectActivity extends AppCompatActivity {
         }
 
     }
-    protected void setListenersOnSaveProjectView(){
-        mPublishProjectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(), "published", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     protected void onNavbarEditCreate(View v){
         currentProjectEditView = EDIT_PROJECT_NAVBAR;
@@ -176,16 +182,39 @@ public class ProjectActivity extends AppCompatActivity {
         mEditJumbotronTitle =  v.findViewById(R.id.edit_jumbotron_title);
         mEditJumbotronText =  v.findViewById(R.id.edit_jumbotron_text);
 
-        Log.d(TAG, "onNavbarEditCreate: " + project.toString());
+        // set up our site nav bar and jumbotron text
         mEditJumbotronText.setText(project.get(DBConfig.JUMBOTRON_TEXT));
         mEditJumbotronTitle.setText(project.get(DBConfig.JUMBOTRON_TITLE));
         mEditSiteName.setText(project.get(DBConfig.NAVBAR_TITLE));
+    }
+
+    protected void onSettingEditCreate(View v){
+
+    }
+
+    protected void onBodyEditCreate(View v){
+
+    }
+
+    protected void onSaveProjectCreate(View v){
+        mPublishProjectButton = v.findViewById(R.id.button_publish);
+        mPublishProjectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mProgressBar.setVisibility(View.VISIBLE);
+                Page p = new Page();
+
+
+            }
+        });
     }
 
     protected void saveAllProjectChanges(){
         Paper.book(DBConfig.PROJECT_NODE).write(projectName, project);
         Toast.makeText(getApplicationContext(), "saved", Toast.LENGTH_SHORT).show();
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -206,5 +235,62 @@ public class ProjectActivity extends AppCompatActivity {
                 .read( projectName,
                         new HashMap<String, String>());
         super.onStart();
+    }
+
+    private static class  AsyncTaskRunner extends AsyncTask<String, String, String> {
+        private WeakReference<ProjectActivity> activityReference;
+
+        AsyncTaskRunner(ProjectActivity context) {
+            activityReference = new WeakReference<>(context);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String SET_SITE_URL = "https://flipdex.ru/ajax/setsite";
+
+            ProjectActivity activity = activityReference.get();
+
+            if (activity == null || activity.isFinishing()) return "z";
+            OkHttpClient client = new OkHttpClient();
+
+            Page p = new Page();
+            p.setTheme(ThemeConfig.DARK);
+            RequestBody formBody = new FormEncodingBuilder()
+                    .add("id", strings[0])
+                    .add("body", strings[2])
+                    .add("title", strings[1] + " - Powered by DexBuilder")
+                    .build();
+            Request request2 = new Request.Builder()
+                    .url(SET_SITE_URL)
+                    .post(formBody)
+                    .build();
+            String res2 = "";
+            try{
+                Response response2 = client.newCall(request2).execute();
+                res2 = response2.body().string();
+                Log.d("check", "post executer server res :" + res2);
+            }catch (IOException e){
+                Log.d("check", "cant read response");
+            }
+
+            return res2;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            ProjectActivity activity = activityReference.get();
+
+            Toast.makeText(activity.getApplicationContext(),
+                    "published on flipdex.ru/"+ activity.projectName ,
+                    Toast.LENGTH_LONG).show();
+
+            activity.mProgressBar.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
     }
 }

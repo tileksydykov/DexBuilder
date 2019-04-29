@@ -1,7 +1,9 @@
 package com.flaterlab.dexbuilder;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
@@ -18,10 +20,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.Toast;
 
 
 import com.flaterlab.dexbuilder.helper.MainListAdapter;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import io.paperdb.Paper;
@@ -56,8 +60,12 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivityForResult(intent, 2);
+                if(isInternetAvailable()){
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivityForResult(intent, 2);
+                }else {
+                    Toast.makeText(getApplicationContext(), "NO INTERNET", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -147,5 +155,11 @@ public class MainActivity extends AppCompatActivity
         {
             updateList();
         }
+    }
+
+    public boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 }

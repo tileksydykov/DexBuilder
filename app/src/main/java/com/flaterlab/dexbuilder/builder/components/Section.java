@@ -8,6 +8,5 @@ public class Section extends Base{
         setTemplate(Resourses.SECTION);
     }
 
-
-
+    
 }

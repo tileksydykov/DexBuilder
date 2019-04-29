@@ -20,12 +20,29 @@
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
+    <ProgressBar
+        android:id="@+id/progressBarLoadingProject"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="273dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/project_activity_main_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/project_activity_main_frame"
+        app:layout_constraintTop_toTopOf="@+id/project_activity_main_frame"
+        app:layout_constraintVertical_bias="0.5" />
+
     <LinearLayout
         android:id="@+id/project_activity_main_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginBottom="50dp">
+
+
 
     </LinearLayout>
 

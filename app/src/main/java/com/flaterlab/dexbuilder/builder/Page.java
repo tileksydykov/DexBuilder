@@ -32,6 +32,7 @@ public class Page {
     }
 
     public Page(int theme,String nameOfPage) {
+        name = nameOfPage;
         this.theme = theme;
     }
 
@@ -77,5 +78,13 @@ public class Page {
         addToPage(header);
         addToPage(n.toString());
         return main;
+    }
+
+    public void setJumbotron(Jumbotron j){
+        addToPage(j.toString());
+    }
+
+    public void addSection(Section s){
+        addToPage(s.toString());
     }
 }

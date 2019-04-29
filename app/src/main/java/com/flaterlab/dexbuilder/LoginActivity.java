@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
             super.onPreExecute();
         }
 
-        protected void saveProjectInDB (String name) {
+        void saveProjectInDB (String name) {
             ArrayList<String> projects = Paper.book().read("projects", new ArrayList<String>());
             projects.add(name);
             Paper.book().write("projects", projects);
