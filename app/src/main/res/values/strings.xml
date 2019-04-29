@@ -27,4 +27,6 @@
     <string name="title_notifications">Settings</string>
     <string name="publish_nav">Publish</string>
     <string name="save_project_title">Save project</string>
+    <string name="publish">Publish</string>
+    <string name="save">Save</string>
 </resources>

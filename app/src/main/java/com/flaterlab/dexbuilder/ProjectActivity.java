@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,6 +19,8 @@ public class ProjectActivity extends AppCompatActivity {
     LayoutInflater inflater;
     ViewGroup mMainContainer;
     View v;
+    Button mSaveProjectButton;
+    Button mPublishProjectButton;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -40,6 +43,8 @@ public class ProjectActivity extends AppCompatActivity {
                 case R.id.navigation_publish:
                     mMainContainer.removeAllViews();
                     v = inflater.inflate(R.layout.save_project_layout, mMainContainer);
+                    mSaveProjectButton = v.findViewById(R.id.button_save);
+                    mPublishProjectButton = v.findViewById(R.id.button_publish);
                     return true;
             }
             return false;
@@ -51,6 +56,16 @@ public class ProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            return;
+        }
+        // get data via the key
+        String value1 = extras.getString("projectName");
+        if (value1 != null) {
+            // do something with the data
+            setTitle("Project: "+value1);
+        }
         inflater = (LayoutInflater) getBaseContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout view = findViewById(R.id.project_activity_main_frame);
@@ -60,4 +75,7 @@ public class ProjectActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    protected void saveAllChanges(View v){
+
+    }
 }

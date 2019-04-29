@@ -41,6 +41,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MyView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     Intent intent = new Intent(parent, ProjectActivity.class);
+                    intent.putExtra("projectName", node);
                     parent.startActivity(intent);
                 }
             });

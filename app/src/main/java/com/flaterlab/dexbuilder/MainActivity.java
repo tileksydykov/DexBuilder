@@ -1,5 +1,6 @@
 package com.flaterlab.dexbuilder;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_builder);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         fab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.main_recycler_view);
 
@@ -50,7 +52,6 @@ public class MainActivity extends AppCompatActivity
 
         // use a linear layout manager
         updateList();
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
