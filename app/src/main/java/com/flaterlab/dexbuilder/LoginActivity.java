@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.flaterlab.dexbuilder.builder.Page;
+import com.flaterlab.dexbuilder.builder.ThemeConfig;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -83,10 +84,10 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("check", "doInBackground: " + res);
                 if(true){
                     Page p = new Page();
-
+                    p.setTheme(ThemeConfig.DARK);
                     RequestBody formBody = new FormEncodingBuilder()
                             .add("id", lastProjectName)
-                            .add("body", p.toString())
+                            .add("body", p.getJumbotronSample(lastProjectName))
                             .add("title", lastProjectName + " - Powered by DexBuilder")
                             .build();
                     Request request2 = new Request.Builder()

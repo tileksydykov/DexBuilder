@@ -12,17 +12,25 @@ public class Header extends Base{
 
     public Header(String header, int theme) {
         setTemplate(Resourses.NAVIGATION_SCOBE);
-
         name = header;
         ClassList classes = new ClassList();
         classes.add("navbar");
         classes.add("navbar-expand-lg");
+
         if(theme == ThemeConfig.LIGHT){
             classes.add("navbar-light bg-light");
         }else if (theme == ThemeConfig.DARK){
             classes.add("navbar-dark bg-dark");
         }
         map.put("class", classes.toString());
+    }
+
+    public String getHeader(){
+        String[] v = {"navbar-brand"};
+        bodyAppend(new Link(name, new ClassList(v), "/").toString());
+        // bodyAppend(standartButton);
+        map.put("body", getBody());
+        return render(getTemplate(), map);
     }
 
     @Override

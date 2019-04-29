@@ -39,10 +39,14 @@ public class Page {
     }
 
     public void refreshHeader() {
-        if (header == null){
+        if (name == null){
             name = "Sample";
         }
-        this.header = new Header(name, theme).toString();
+        this.header = new Header(name, theme).getHeader();
+    }
+
+    public void setTheme(int theme) {
+        this.theme = theme;
     }
 
     private void addToPage(String html){
@@ -52,11 +56,22 @@ public class Page {
                 .toString();
     }
 
-    public String getPage(){
+    public String getPage(String name){
         Jumbotron n = new Jumbotron();
-        n.setTitle("tielk");
-        n.setButton("get");
-        n.setText("himifrhgu");
+        n.setTitle(name);
+        n.setButton("Sample");
+        n.setText("This is your first page!!! Enjoy!");
+        refreshHeader();
+        addToPage(header);
+        addToPage(n.toString());
+        return main;
+    }
+    public String getJumbotronSample(String name){
+        setName(name);
+        Jumbotron n = new Jumbotron();
+        n.setTitle(name);
+        n.setButton("Sample");
+        n.setText("This is your first page!!! Enjoy!");
         refreshHeader();
         addToPage(header);
         addToPage(n.toString());

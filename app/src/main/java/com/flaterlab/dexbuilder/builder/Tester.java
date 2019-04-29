@@ -11,9 +11,12 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import javax.net.ssl.HandshakeCompletedEvent;
+
 public class Tester {
 
     public static void main(String[] args) {
-
+        Header  p = new Header("tilek", ThemeConfig.DARK);
+        System.out.println(p.getHeader());
     }
 }
