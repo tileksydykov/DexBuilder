@@ -170,6 +170,7 @@ public class LoginActivity extends AppCompatActivity {
 
             HashMap<String, String> project = new HashMap<>();
             project.put(DBConfig.JUMBOTRON_IS_OFF, DBConfig.JUMBOTRON_ON);
+            project.put(DBConfig.CONTENT_MAIN, "content");
             project.put(DBConfig.TITLE, name);
             project.put(DBConfig.NAVBAR_TITLE, name);
             project.put(DBConfig.JUMBOTRON_TITLE, name);

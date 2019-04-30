@@ -2,6 +2,8 @@ package com.flaterlab.dexbuilder.helper;
 
 import android.widget.Switch;
 
+import com.flaterlab.dexbuilder.builder.components.Section;
+
 public class DBConfig {
 
     public final static String USER_NODE = "user";
@@ -23,5 +25,6 @@ public class DBConfig {
     public final static String JUMBOTRON_OFF = "true";
     public final static String JUMBOTRON_ON = "false";
 
+    public final static String CONTENT_MAIN = "mainContent";
 
 }

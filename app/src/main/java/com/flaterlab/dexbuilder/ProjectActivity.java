@@ -80,7 +80,7 @@ public class ProjectActivity extends AppCompatActivity {
     // setting end
 
     // body
-
+    RichEditor mEditor;
     // body end
 
     int currentProjectEditView;
@@ -97,6 +97,8 @@ public class ProjectActivity extends AppCompatActivity {
                     saveAllChanges();
 
                     mMainContainer.removeAllViews();
+
+                    currentProjectEditView = EDIT_PROJECT_NAVBAR;
 
                     v = inflater.inflate(R.layout.navbar_edit_layout, mMainContainer);
 
@@ -166,7 +168,7 @@ public class ProjectActivity extends AppCompatActivity {
                 .read( projectName,
                         new HashMap<String, String>());
 
-
+        currentProjectEditView = EDIT_PROJECT_NAVBAR;
         // get data via the key
         if (projectName != null) {
             // do something with the data
@@ -180,6 +182,8 @@ public class ProjectActivity extends AppCompatActivity {
         v = inflater.inflate(R.layout.navbar_edit_layout, mMainContainer);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
 
         onNavbarEditCreate(v);
     }
@@ -200,14 +204,21 @@ public class ProjectActivity extends AppCompatActivity {
 
                 project.put(DBConfig.JUMBOTRON_BUTTON_TEXT,
                         mEditJumbotronButton.getText().toString());
-
+                break;
             case EDIT_PROJECT_BODY:
 
-
+                project.put(DBConfig.CONTENT_MAIN,
+                        mEditor.getHtml() + "<div style=\"height: 200px\"></div>");
+                break;
             case EDIT_PROJECT_SAVE:
 
+
+                break;
             case EDIT_PROJECT_SETTING:
 
+                break;
+            default:
+                break;
         }
 
     }
@@ -310,9 +321,10 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     protected void onBodyEditCreate(View v){
-        final RichEditor mEditor = (RichEditor) findViewById(R.id.editor);
+        mEditor = (RichEditor) v.findViewById(R.id.editor);
         mEditor.setPadding(10, 10, 10, 10);
         mEditor.setEditorHeight(200);
+        mEditor.setPlaceholder("Insert text here...");
         mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
             @Override
             public void onTextChange(String text) {
@@ -320,6 +332,10 @@ public class ProjectActivity extends AppCompatActivity {
                 Log.d("RichEditor", "Preview " + text);
             }
         });
+        String content = project.get(DBConfig.CONTENT_MAIN);
+        if(content != null){
+            mEditor.setHtml(content);
+        }
         findViewById(R.id.action_undo).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 mEditor.undo();
@@ -526,7 +542,7 @@ public class ProjectActivity extends AppCompatActivity {
                 // init body
                 Column first = new Column();
 
-                first.bodyAppend("himikfndsaou wrh g;orw gbtkle ghoten ohetsnhbt snh tnbhten hornt ohntesl elsu idbi");
+                first.bodyAppend(project.get(DBConfig.CONTENT_MAIN));
 
                 Section s = new Section(first);
 
