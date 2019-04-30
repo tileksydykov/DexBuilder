@@ -17,6 +17,7 @@
             android:id="@+id/imageButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_plus_one_24px"
             app:srcCompat="@drawable/ic_dashboard_black_24dp"
             android:layout_weight="1"/>
 
@@ -24,6 +25,7 @@
             android:id="@+id/imageButton2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_send_white"
             app:srcCompat="@drawable/ic_icons8_settings_filled"
             android:layout_weight="1"/>
 
@@ -31,6 +33,7 @@
             android:id="@+id/imageButton3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_send"
             app:srcCompat="@drawable/ic_home_black_24dp"
             android:layout_weight="1"/>
 

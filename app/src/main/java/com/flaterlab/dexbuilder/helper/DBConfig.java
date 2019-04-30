@@ -3,6 +3,9 @@ package com.flaterlab.dexbuilder.helper;
 import android.widget.Switch;
 
 public class DBConfig {
+
+    public final static String USER_NODE = "user";
+
     public final static String PROJECT_NODE = "projects";
     public final static String PROJECT_NODE_WITH_SLASH = "projects/";
 

@@ -230,6 +230,32 @@ public class ProjectActivity extends AppCompatActivity {
         mEditJumbotronButton.setText(project.get(DBConfig.JUMBOTRON_BUTTON_TEXT));
         mEditButtonLink.setText(project.get(DBConfig.JUMBOTRON_BUTTON_LINK));
 
+        // initialize group button
+        int idForButtonRadio = R.id.style_grey;
+        String styleForButton = project.get(DBConfig.JUMBOTRON_BUTTON_STYLE);
+        if (styleForButton != null){
+            switch (styleForButton){
+                case StylesConfig.BTN_BLUE:
+                    idForButtonRadio = R.id.style_blue;
+                    break;
+                case StylesConfig.BTN_RED:
+                    idForButtonRadio = R.id.style_red;
+                    break;
+                case StylesConfig.BTN_GREEN:
+                    idForButtonRadio = R.id.style_green;
+                    break;
+                case StylesConfig.BTN_YELLOW:
+                    idForButtonRadio = R.id.style_yellow;
+                    break;
+                case StylesConfig.BTN_GREY:
+                    idForButtonRadio = R.id.style_grey;
+                    break;
+                default:
+                    break;
+            }
+        }
+        // check button style
+        mButtonStyleRadioGroup.check(idForButtonRadio);
 
         mJumbotronSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -242,8 +268,8 @@ public class ProjectActivity extends AppCompatActivity {
                 }
             }
         });
+        // set check listener on Radio group
         mButtonStyleRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
@@ -269,15 +295,17 @@ public class ProjectActivity extends AppCompatActivity {
                 }
             }
         });
-        Boolean isJumbotronEnabled = project.get(DBConfig.JUMBOTRON_IS_OFF).equals(DBConfig.JUMBOTRON_ON);
-        if(isJumbotronEnabled){
-            mJumbotronSwitch.setChecked(true);
+        String j = project.get(DBConfig.JUMBOTRON_IS_OFF);
+        if(j != null){
+            if(j.equals(DBConfig.JUMBOTRON_ON)){
+                mJumbotronSwitch.setChecked(true);
+            }
         }
 
     }
 
     protected void onSettingEditCreate(View v){
-
+        
     }
 
     protected void onBodyEditCreate(View v){

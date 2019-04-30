@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.flaterlab.dexbuilder.builder.Page;
 import com.flaterlab.dexbuilder.builder.ThemeConfig;
 import com.flaterlab.dexbuilder.helper.DBConfig;
+import com.flaterlab.dexbuilder.helper.StylesConfig;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -158,13 +159,22 @@ public class LoginActivity extends AppCompatActivity {
             Paper.book().write("projects", projects);
 
 
+
+
+            // init project config
+
             HashMap<String, String> project = new HashMap<>();
             project.put(DBConfig.JUMBOTRON_IS_OFF, DBConfig.JUMBOTRON_ON);
             project.put(DBConfig.TITLE, name);
             project.put(DBConfig.NAVBAR_TITLE, name);
             project.put(DBConfig.JUMBOTRON_TITLE, name);
             project.put(DBConfig.JUMBOTRON_BUTTON_TEXT, "sample");
+            project.put(DBConfig.JUMBOTRON_BUTTON_LINK, "");
+            project.put(DBConfig.JUMBOTRON_BUTTON_STYLE, StylesConfig.BTN_GREY);
             project.put(DBConfig.JUMBOTRON_TEXT, "This is your first page!!! Enjoy!");
+
+
+            // save project in DB
             Paper.book(DBConfig.PROJECT_NODE).write( name,  project);
         }
     }
