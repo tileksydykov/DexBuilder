@@ -13,10 +13,12 @@ public class DBConfig {
 
     public final static String JUMBOTRON_TEXT = "JumbotronText";
     public final static String JUMBOTRON_TITLE = "JumbotronTitle";
-    public final static String JUMBOTRON_BUTTON_TEXT= "JumbotronButtonText";
+    public final static String JUMBOTRON_BUTTON_TEXT = "JumbotronButtonText";
+    public final static String JUMBOTRON_BUTTON_LINK = "JumbotronButtonLink";
     public final static String JUMBOTRON_BUTTON_STYLE = "JumbotronButtonStyle";
     public final static String JUMBOTRON_IS_OFF = "JumbotronIsOff";
-
     public final static String JUMBOTRON_OFF = "true";
     public final static String JUMBOTRON_ON = "false";
+
+
 }

@@ -36,4 +36,14 @@
     <string name="sample_text_for_button">Sample</string>
     <string name="short_link_error">Too short (at least 3 char)</string>
     <string name="link_contains_spaces_error">Site link should\'n contains any space</string>
+    <string name="edit_button_text">Edit button text</string>
+    <string name="edit_button_link">Edit button link</string>
+    <string name="jumbotron">Jumbotron</string>
+    <string name="select_the_button_style">Select The Button Style</string>
+    <string name="button">Button</string>
+    <string name="blue">Blue</string>
+    <string name="red">Red</string>
+    <string name="grey">Grey</string>
+    <string name="violet">Violet</string>
+    <string name="yellow">Yellow</string>
 </resources>

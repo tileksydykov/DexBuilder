@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.flaterlab.dexbuilder.builder.ThemeConfig;
 import com.flaterlab.dexbuilder.builder.components.Header;
 import com.flaterlab.dexbuilder.builder.components.Jumbotron;
 import com.flaterlab.dexbuilder.helper.DBConfig;
+import com.flaterlab.dexbuilder.helper.StylesConfig;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -50,16 +52,33 @@ public class ProjectActivity extends AppCompatActivity {
     LayoutInflater inflater;
     ViewGroup mMainContainer;
     View v;
+
+    //save
     Button mPublishProjectButton;
+    // save end
+
+    // navbar
     EditText mEditSiteName;
     EditText mEditJumbotronTitle;
     EditText mEditJumbotronText;
+    EditText mEditJumbotronButton;
+    EditText mEditButtonLink;
     HashMap<String, String> project;
     String projectName;
     ProgressBar mProgressBar;
     ProjectActivity context;
     Switch mJumbotronSwitch;
     LinearLayout mJumbotronLayout;
+    RadioGroup mButtonStyleRadioGroup;
+    // navbar end
+
+    // setting
+
+    // setting end
+
+    // body
+
+    // body end
 
     int currentProjectEditView;
 
@@ -174,6 +193,14 @@ public class ProjectActivity extends AppCompatActivity {
                 project.put(DBConfig.NAVBAR_TITLE,
                         mEditSiteName.getText().toString());
 
+                project.put(DBConfig.JUMBOTRON_BUTTON_LINK,
+                        mEditButtonLink.getText().toString());
+
+                project.put(DBConfig.JUMBOTRON_BUTTON_TEXT,
+                        mEditJumbotronButton.getText().toString());
+
+
+
             case EDIT_PROJECT_BODY:
 
             case EDIT_PROJECT_SAVE:
@@ -191,15 +218,20 @@ public class ProjectActivity extends AppCompatActivity {
         mEditJumbotronText =  v.findViewById(R.id.edit_jumbotron_text);
         mJumbotronSwitch = v.findViewById(R.id.switch_jumbotron);
         mJumbotronLayout = v.findViewById(R.id.jumbotron_edit_layout);
+        mEditButtonLink = v.findViewById(R.id.edit_jumbotron_button_link);
+        mEditJumbotronButton = v.findViewById(R.id.edit_jumbotron_button_text);
+        mButtonStyleRadioGroup = findViewById(R.id.button_style_radio);
+
 
         // set up our site nav bar and jumbotron text
         mEditJumbotronText.setText(project.get(DBConfig.JUMBOTRON_TEXT));
         mEditJumbotronTitle.setText(project.get(DBConfig.JUMBOTRON_TITLE));
         mEditSiteName.setText(project.get(DBConfig.NAVBAR_TITLE));
+        mEditJumbotronButton.setText(project.get(DBConfig.JUMBOTRON_BUTTON_TEXT));
+        mEditButtonLink.setText(project.get(DBConfig.JUMBOTRON_BUTTON_LINK));
 
 
-
-       mJumbotronSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mJumbotronSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     mJumbotronLayout.setVisibility(View.VISIBLE);
@@ -207,6 +239,33 @@ public class ProjectActivity extends AppCompatActivity {
                 } else {
                     mJumbotronLayout.setVisibility(View.INVISIBLE);
                     project.put(DBConfig.JUMBOTRON_IS_OFF, DBConfig.JUMBOTRON_OFF);
+                }
+            }
+        });
+        mButtonStyleRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case -1:
+                        break;
+                    case R.id.style_grey:
+                        project.put(DBConfig.JUMBOTRON_BUTTON_STYLE, StylesConfig.BTN_GREY);
+                        break;
+                    case R.id.style_red:
+                        project.put(DBConfig.JUMBOTRON_BUTTON_STYLE, StylesConfig.BTN_RED);
+                        break;
+                    case R.id.style_green:
+                        project.put(DBConfig.JUMBOTRON_BUTTON_STYLE, StylesConfig.BTN_GREEN);
+                        break;
+                    case R.id.style_blue:
+                        project.put(DBConfig.JUMBOTRON_BUTTON_STYLE, StylesConfig.BTN_BLUE);
+                        break;
+                    case R.id.style_yellow:
+                        project.put(DBConfig.JUMBOTRON_BUTTON_STYLE, StylesConfig.BTN_YELLOW);
+                        break;
+                    default:
+                        break;
                 }
             }
         });
