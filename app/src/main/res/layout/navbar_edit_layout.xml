@@ -130,7 +130,7 @@
                     android:id="@+id/style_green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/violet"
+                    android:text="@string/green"
                     android:layout_marginStart="10dp"/>
                 <RadioButton
                     android:id="@+id/style_yellow"

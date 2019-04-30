@@ -1,7 +1,6 @@
 package com.flaterlab.dexbuilder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -24,8 +23,11 @@ import android.widget.Toast;
 
 import com.flaterlab.dexbuilder.builder.Page;
 import com.flaterlab.dexbuilder.builder.ThemeConfig;
+import com.flaterlab.dexbuilder.builder.components.Column;
+import com.flaterlab.dexbuilder.builder.components.Footer;
 import com.flaterlab.dexbuilder.builder.components.Header;
 import com.flaterlab.dexbuilder.builder.components.Jumbotron;
+import com.flaterlab.dexbuilder.builder.components.Section;
 import com.flaterlab.dexbuilder.helper.DBConfig;
 import com.flaterlab.dexbuilder.helper.StylesConfig;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -36,7 +38,6 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.paperdb.Paper;
@@ -184,7 +185,6 @@ public class ProjectActivity extends AppCompatActivity {
     protected void saveAllChanges(){
         switch (currentProjectEditView){
             case EDIT_PROJECT_NAVBAR:
-
                 project.put(DBConfig.JUMBOTRON_TEXT,
                         mEditJumbotronText.getText().toString());
                 project.put(DBConfig.JUMBOTRON_TITLE,
@@ -199,9 +199,8 @@ public class ProjectActivity extends AppCompatActivity {
                 project.put(DBConfig.JUMBOTRON_BUTTON_TEXT,
                         mEditJumbotronButton.getText().toString());
 
-
-
             case EDIT_PROJECT_BODY:
+
 
             case EDIT_PROJECT_SAVE:
 
@@ -305,7 +304,7 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     protected void onSettingEditCreate(View v){
-        
+
     }
 
     protected void onBodyEditCreate(View v){
@@ -323,20 +322,43 @@ public class ProjectActivity extends AppCompatActivity {
                         ThemeConfig.DARK);
                 p.setHeader(h);
 
+
+                // init jumbotron if it should be
                 if(project.get(DBConfig.JUMBOTRON_IS_OFF).equals(DBConfig.JUMBOTRON_ON)){
+
+                    // ! ! ! ! ! order is important ! ! ! ! ! !
+
                     Jumbotron j = new Jumbotron();
 
                     j.setTitle(project.get(DBConfig.JUMBOTRON_TITLE));
 
                     j.setText(project.get(DBConfig.JUMBOTRON_TEXT));
 
-                    j.setButton(project.get(DBConfig.JUMBOTRON_TITLE));
+                    j.setButtonStyle(project.get(DBConfig.JUMBOTRON_BUTTON_STYLE));
+
+                    j.setButtonLink(project.get(DBConfig.JUMBOTRON_BUTTON_LINK));
+
+                    j.setButton(project.get(DBConfig.JUMBOTRON_BUTTON_TEXT));
+
                     p.setJumbotron(j);
                 }
 
 
 
+                // init body
+                Column first = new Column();
 
+                first.bodyAppend("himikfndsaou wrh g;orw gbtkle ghoten ohetsnhbt snh tnbhten hornt ohntesl elsu idbi");
+
+                Section s = new Section(first);
+                p.addToPage(s.render());
+
+                // init footer
+
+                Footer f = new Footer();
+                p.addToPage(f.getStandartFooter("himik"));
+
+                // send and publish page on server
                 new AsyncTaskRunner(context).execute(
                         projectName,
                         project.get(DBConfig.TITLE),

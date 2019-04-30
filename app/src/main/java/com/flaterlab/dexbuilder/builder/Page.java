@@ -1,6 +1,7 @@
 package com.flaterlab.dexbuilder.builder;
 
 import com.flaterlab.dexbuilder.R;
+import com.flaterlab.dexbuilder.builder.components.Footer;
 import com.flaterlab.dexbuilder.builder.components.Header;
 import com.flaterlab.dexbuilder.builder.components.Jumbotron;
 import com.flaterlab.dexbuilder.builder.components.Section;
@@ -49,7 +50,7 @@ public class Page {
         this.theme = theme;
     }
 
-    private void addToPage(String html){
+    public void addToPage(String html){
         main = new StringBuilder()
                 .append(main)
                 .append(html)

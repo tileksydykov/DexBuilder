@@ -3,13 +3,13 @@ package com.flaterlab.dexbuilder.builder.components;
 import java.util.HashMap;
 import java.util.Set;
 
-public abstract class Base {
+public abstract class HTMLObject {
     HashMap<String, String> map;
     private String body;
     private String GenTemplate;
     ClassList classes;
 
-    public Base() {
+    public HTMLObject() {
         this.map = new HashMap<>();
         body = "";
         classes = new ClassList();

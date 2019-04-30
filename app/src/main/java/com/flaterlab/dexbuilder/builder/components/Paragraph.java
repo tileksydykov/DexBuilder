@@ -2,7 +2,7 @@ package com.flaterlab.dexbuilder.builder.components;
 
 import com.flaterlab.dexbuilder.builder.Resourses;
 
-public class Paragraph extends Base {
+public class Paragraph extends HTMLObject {
 
     public Paragraph(String text) {
         setTemplate(Resourses.PARAGRAPH);

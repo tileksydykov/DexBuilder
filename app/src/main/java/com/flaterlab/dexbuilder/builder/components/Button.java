@@ -2,7 +2,7 @@ package com.flaterlab.dexbuilder.builder.components;
 
 import com.flaterlab.dexbuilder.builder.Resourses;
 
-public class Button extends Base {
+public class Button extends HTMLObject {
     private String link = "";
     private String text;
     private String type;

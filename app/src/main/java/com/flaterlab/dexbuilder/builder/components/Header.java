@@ -3,7 +3,7 @@ package com.flaterlab.dexbuilder.builder.components;
 import com.flaterlab.dexbuilder.builder.Resourses;
 import com.flaterlab.dexbuilder.builder.ThemeConfig;
 
-public class Header extends Base{
+public class Header extends HTMLObject {
     String name;
     String standartButton = "<button class=\"navbar-toggler\" type=\"button\" " +
             "data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" " +

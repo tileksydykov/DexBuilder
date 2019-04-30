@@ -4,7 +4,7 @@ import com.flaterlab.dexbuilder.builder.Resourses;
 
 import java.util.ArrayList;
 
-public class List extends Base{
+public class List extends HTMLObject {
     private String list = Resourses.LIST;
     private String listEl = Resourses.LIST_ELEMENT;
 

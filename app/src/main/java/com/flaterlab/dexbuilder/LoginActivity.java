@@ -68,6 +68,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (siteName.contains(" ")){
                     Toast.makeText(getApplicationContext(), context.getString(R.string.link_contains_spaces_error), Toast.LENGTH_LONG).show();
                     err = "z";
+
+                }
+                if (siteName.contains(".")){
+                    Toast.makeText(getApplicationContext(), "Site link shouldn't contain any dots", Toast.LENGTH_LONG).show();
+                    err = "z";
                 }
                 if(err.equals("")){
                     mProgresBar.setVisibility(View.VISIBLE);

@@ -2,7 +2,7 @@ package com.flaterlab.dexbuilder.builder.components;
 
 import com.flaterlab.dexbuilder.builder.Resourses;
 
-public class Title extends Base{
+public class Title extends HTMLObject {
 
     private String h1 = Resourses.TITLE_1;
     private String h2 = Resourses.TITLE_2;

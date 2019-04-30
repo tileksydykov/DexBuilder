@@ -1,4 +1,10 @@
 package com.flaterlab.dexbuilder.builder.components;
 
-public class Column {
+import com.flaterlab.dexbuilder.builder.Resourses;
+
+public class Column extends HTMLObject{
+    public Column() {
+        setTemplate(Resourses.CONTAINER_SCOBE);
+        addClass("col");
+    }
 }

@@ -1,5 +1,5 @@
 package com.flaterlab.dexbuilder.builder.components;
 
-public class Table extends Base{
+public class Table extends HTMLObject {
 
 }

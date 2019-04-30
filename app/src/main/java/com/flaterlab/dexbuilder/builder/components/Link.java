@@ -2,7 +2,7 @@ package com.flaterlab.dexbuilder.builder.components;
 
 import com.flaterlab.dexbuilder.builder.Resourses;
 
-public class Link extends Base {
+public class Link extends HTMLObject {
 
     public Link(String body, ClassList classes) {
         setTemplate(Resourses.LINK);
