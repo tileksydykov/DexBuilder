@@ -13,10 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.flaterlab.dexbuilder.builder.Page;
@@ -56,6 +58,8 @@ public class ProjectActivity extends AppCompatActivity {
     String projectName;
     ProgressBar mProgressBar;
     ProjectActivity context;
+    Switch mJumbotronSwitch;
+    LinearLayout mJumbotronLayout;
 
     int currentProjectEditView;
 
@@ -180,17 +184,37 @@ public class ProjectActivity extends AppCompatActivity {
 
     }
 
-
     protected void onNavbarEditCreate(View v){
         currentProjectEditView = EDIT_PROJECT_NAVBAR;
         mEditSiteName =  v.findViewById(R.id.edit_site_name);
         mEditJumbotronTitle =  v.findViewById(R.id.edit_jumbotron_title);
         mEditJumbotronText =  v.findViewById(R.id.edit_jumbotron_text);
+        mJumbotronSwitch = v.findViewById(R.id.switch_jumbotron);
+        mJumbotronLayout = v.findViewById(R.id.jumbotron_edit_layout);
 
         // set up our site nav bar and jumbotron text
         mEditJumbotronText.setText(project.get(DBConfig.JUMBOTRON_TEXT));
         mEditJumbotronTitle.setText(project.get(DBConfig.JUMBOTRON_TITLE));
         mEditSiteName.setText(project.get(DBConfig.NAVBAR_TITLE));
+
+
+
+       mJumbotronSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mJumbotronLayout.setVisibility(View.VISIBLE);
+                    project.put(DBConfig.JUMBOTRON_IS_OFF, DBConfig.JUMBOTRON_ON);
+                } else {
+                    mJumbotronLayout.setVisibility(View.INVISIBLE);
+                    project.put(DBConfig.JUMBOTRON_IS_OFF, DBConfig.JUMBOTRON_OFF);
+                }
+            }
+        });
+        Boolean isJumbotronEnabled = project.get(DBConfig.JUMBOTRON_IS_OFF).equals(DBConfig.JUMBOTRON_ON);
+        if(isJumbotronEnabled){
+            mJumbotronSwitch.setChecked(true);
+        }
+
     }
 
     protected void onSettingEditCreate(View v){
@@ -208,21 +232,23 @@ public class ProjectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mProgressBar.setVisibility(View.VISIBLE);
                 Page p = new Page();
-                Header h = new Header(project.get(DBConfig.TITLE),
+                Header h = new Header(project.get(DBConfig.NAVBAR_TITLE),
                         ThemeConfig.DARK);
-
-
-
-                Jumbotron j = new Jumbotron();
-
-                j.setTitle(project.get(DBConfig.JUMBOTRON_TITLE));
-
-                j.setText(project.get(DBConfig.JUMBOTRON_TEXT));
-
-                j.setButton(project.get(DBConfig.JUMBOTRON_TITLE));
-
                 p.setHeader(h);
-                p.setJumbotron(j);
+
+                if(project.get(DBConfig.JUMBOTRON_IS_OFF).equals(DBConfig.JUMBOTRON_ON)){
+                    Jumbotron j = new Jumbotron();
+
+                    j.setTitle(project.get(DBConfig.JUMBOTRON_TITLE));
+
+                    j.setText(project.get(DBConfig.JUMBOTRON_TEXT));
+
+                    j.setButton(project.get(DBConfig.JUMBOTRON_TITLE));
+                    p.setJumbotron(j);
+                }
+
+
+
 
                 new AsyncTaskRunner(context).execute(
                         projectName,
@@ -238,8 +264,6 @@ public class ProjectActivity extends AppCompatActivity {
         Paper.book(DBConfig.PROJECT_NODE).write(projectName, project);
         Toast.makeText(getApplicationContext(), "saved", Toast.LENGTH_SHORT).show();
     }
-
-
 
     @Override
     public void onBackPressed() {

@@ -66,6 +66,7 @@ public class Page {
         addToPage(n.toString());
         return main;
     }
+
     public String getJumbotronSample(String name){
         setName(name);
         Jumbotron n = new Jumbotron();
@@ -79,7 +80,7 @@ public class Page {
     }
 
     public void setHeader(Header h){
-        addToPage(h.toString());
+        addToPage(h.getHeader());
     }
 
     public void setJumbotron(Jumbotron j){

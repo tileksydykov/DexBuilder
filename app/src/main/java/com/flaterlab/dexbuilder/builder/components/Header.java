@@ -26,7 +26,11 @@ public class Header extends Base{
 
     public String getHeader(){
         String[] v = {"navbar-brand"};
-        bodyAppend(new Link(name, new ClassList(v), "/").toString());
+        Link l = new Link(name, new ClassList(v), "/");
+        Div d = new Div();
+        d.bodyAppend(l.toString());
+        d.addClass("header");
+        bodyAppend(d.render());
         // bodyAppend(standartButton);
         map.put("body", getBody());
         return render(getTemplate(), map);

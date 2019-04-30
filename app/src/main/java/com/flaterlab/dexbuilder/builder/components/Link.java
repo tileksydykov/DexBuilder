@@ -20,7 +20,7 @@ public class Link extends Base {
     public Link(String body, ClassList classes, String link) {
         setTemplate(Resourses.LINK);
         bodyAppend(body);
-        map.put("class", classes.toString());
+        this.classes = classes;
         map.put("link", link);
     }
 
