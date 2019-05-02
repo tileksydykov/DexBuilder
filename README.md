@@ -18,6 +18,9 @@ DexBuilder is the program which allow you to learn a basics of web programming a
  # Release notes
 
  <ul>
+  
   <li>v0.0.1 - Basic mobile application release</li>
+  <li>v0.1.0 - Complete mobile aplication</li>
+  <li>v0.1.5 - Mobile application functions added</li>
+  
  </ul>
- 
